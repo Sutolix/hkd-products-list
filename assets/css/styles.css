@@ -53,9 +53,11 @@
 
 /* Navegação das Abas */
 .elementor-widget-hpl_products_list .hpl-tabs-header {
+    --gap : 10px;
+
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--gap);
     list-style: none;
     padding: 0;
     margin: 0;
