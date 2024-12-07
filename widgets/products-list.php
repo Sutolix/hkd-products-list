@@ -91,17 +91,300 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
             ]
         );
 
-        $this->end_controls_section();
-
-        $this->start_controls_section(
-            'style_section',
+        $this->add_control(
+            'show_badge',
             [
-                'label' => esc_html__('Style', 'elementor'),
-                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+                'label' => 'Mostrar emblema',
+                'type' => \Elementor\Controls_Manager::SWITCHER,
+                'label_on' => esc_html__('Show', 'elementor'),
+                'label_off' => esc_html__('Hide', 'elementor'),
+                'return_value' => 'yes',
+                'default' => 'no',
+            ]
+        );
+
+        $this->add_control(
+            'badge',
+            [
+                'label' => 'Escolher emblema',
+                'description' =>  'Ficará ao lado do produto na listagem.',
+                'type' => \Elementor\Controls_Manager::MEDIA,
+                'default' => [
+                    'url' => \Elementor\Utils::get_placeholder_image_src(),
+                ],
+                'condition' => [
+                    'show_badge' => 'yes',
+                ],
             ]
         );
 
         $this->end_controls_section();
+
+        $this->start_controls_section(
+            'tabs_style_section',
+            [
+                'label' => 'Abas',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->start_controls_tabs(
+            'tabs_box_shadow_tabs'
+        );
+
+        $this->start_controls_tab(
+            'tabs_box_shadow_normal',
+            [
+                'label' => 'Normal',
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'tabs_box_shadow',
+                'selector' => '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item',
+            ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab(
+            'tabs_box_shadow_active',
+            [
+                'label' => 'Selecionado',
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Box_Shadow::get_type(),
+            [
+                'name' => 'tabs_box_shadow_hover',
+                'selector' => '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item.hpl-active',
+            ]
+        );
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'tabs_border',
+                'selector' => '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item',
+            ]
+        );
+
+        $this->add_control(
+            'tabs_padding',
+            [
+                'label' => esc_html__('Padding', 'elementor'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', '%', 'em', 'rem', 'custom'],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'tabs_gap',
+            [
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'label' => 'Espaço entre abas',
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'devices' => ['desktop', 'tablet', 'mobile'],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-tabs-header' => '--gap: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'tabs_typography',
+                'selector' => '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item span',
+            ]
+        );
+
+        $this->add_control(
+			'tabs_image_width',
+			[
+				'label' => 'Largura das imagens',
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+						'step' => 5,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+        $this->add_control(
+			'tabs_image_height',
+			[
+				'label' => 'Altura das imagens',
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+						'step' => 5,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+        $this->add_control(
+			'tabs_image_object',
+			[
+				'label' => 'Ajuste do objeto',
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => '',
+				'options' => [
+					'' => 'Padrão',
+					'fill' => 'Preencher',
+					'cover'  => 'Cobertura',
+					'contain' => 'Conter'
+				],
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'object-fit: {{VALUE}};',
+				],
+				'condition' => [
+					'tabs_image_height[size]!' => '',
+				],
+			]
+		);
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'loop_style_section',
+            [
+                'label' => 'Item do loop',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Border::get_type(),
+            [
+                'name' => 'loop_border',
+                'selector' => '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item',
+            ]
+        );
+
+        $this->add_control(
+            'loop_padding',
+            [
+                'label' => esc_html__('Padding', 'elementor'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', '%', 'em', 'rem', 'custom'],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'variation_header',
+            [
+                'label' => 'Título e emblema',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'variation_title_text',
+                'selector' => '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-header span',
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'variation_body',
+            [
+                'label' => 'Descrição da variação',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'variation_description_text',
+                'selector' => '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-info',
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'variation_action',
+            [
+                'label' => 'Botão',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'variation_button_text',
+                'selector' => '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-action button',
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'modal',
+            [
+                'label' => 'Modal',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'modal_text',
+                'selector' => '{{WRAPPER}} .hpl-modal .hpl-modal-content',
+            ]
+        );
+
+        $this->end_controls_section();
+
     }
 
     protected function render(): void
@@ -113,69 +396,101 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         $tabHeaders = '';
         $tab_contents = '';
 
-        foreach ($settings['products'] as $product) {
+        foreach ($settings['products'] as $key => $product) {
             $product = wc_get_product($product['product_id']);
 
             if (!$product || !$product->is_type('variable')) {
                 continue;
             }
 
+            $active = $key === 0 ? 'hpl-active' : '';
             $product_name = $product->get_name();
             $product_slug = $product->get_slug();
             $product_image = wp_get_attachment_url($product->get_image_id());
 
             // Criação da aba
-            $tabHeaders .= "<li class='hpl_tab-item' data-tab='hpl_tab-{$product_slug}'>";
+            $tabHeaders .= "<li class='hpl-tab-item {$active}' data-tab='hpl-tab-{$product_slug}'>";
             if ($product_image) {
-                $tabHeaders .= "<img src='{$product_image}' alt='{$product_name}' class='hpl_product-thumbnail' />";
+                $tabHeaders .= "<img src='{$product_image}' alt='{$product_name}' class='hpl-product-thumbnail' />";
             }
             $tabHeaders .= "<span>{$product_name}</span>";
             $tabHeaders .= "</li>";
 
             // Variações do produto
-            $tab_contents .= "<div class='hpl_tab-content' id='hpl_tab-{$product_slug}'>";
+            $tab_contents .= "<div class='hpl-tab-content {$active}' id='hpl-tab-{$product_slug}'>";
 
             $variation_ids = $product->get_children();
             foreach ($variation_ids as $variation_id) {
                 $variation = wc_get_product($variation_id);
 
                 $attributes = $variation->get_variation_attributes();
-                $variation_name = is_array($attributes) ? array_pop(array_reverse($attributes)) : $product_name;
-                $variation_price = $variation->get_price_html();
+                $name = is_array($attributes) ? array_pop(array_reverse($attributes)) : $product_name;
+                $price = $variation->get_price_html();
+                $description = $variation->get_description();
                 $add_to_cart_url = wc_get_cart_url() . "?add-to-cart={$product->get_id()}&variation_id={$variation->get_id()}";
 
-                $tab_contents .= "<div class='hpl_variation-item'>";
-                $tab_contents .= "<h4>{$variation_name}</h4>";
-                $tab_contents .= "<button class='hpl_buy-button' 
-                                        data-product-name='{$product_name}' 
-                                        data-product-price='{$variation_price}' 
-                                        data-product-image='{$product_image}' 
-                                        data-variation-name='{$variation_name}' 
-                                        data-add-to-cart='{$add_to_cart_url}'>
-                                        Comprar
-                                     </button>";
-                $tab_contents .= "</div>";
+                ob_start();
+?>
+                <div class='hpl-variation-item'>
+                    <div class="hpl-variation-header">
+                        <?php
+                        if (
+                            isset($settings['show_badge']) &&
+                            $settings['show_badge'] === 'yes' &&
+                            isset($settings['badge']) &&
+                            isset($settings['badge']['url']) &&
+                            !empty($settings['badge']['url'])
+                        ) {
+                            echo "<img src='{$settings['badge']['url']}'/>";
+                        }
+                        ?>
+                        <span><?php echo $name ?></span>
+                    </div>
+                    <div class="hpl-variation-info">
+                        <div><?php echo $description ?></div>
+                        <div>por <?php echo $price ?></div>
+                    </div>
+                    <div class="hpl-variation-action">
+                        <button class='hpl-buy-button'
+                            data-product-name='<?php echo $product_name ?>'
+                            data-product-price='<?php echo $price ?>'
+                            data-product-image='<?php echo $product_image ?>'
+                            data-variation-name='<?php echo $name ?>'
+                            data-add-to-cart='<?php echo $add_to_cart_url ?>'>
+                            Comprar
+                        </button>
+                    </div>
+                </div>
+        <?php
+                $tab_contents .= ob_get_clean();
             }
             $tab_contents .= "</div>";
         }
 
-        echo "<div class='elementor-widget-hpl_products_list'>";
-        echo "<ul class='hpl_tabs-header'>{$tabHeaders}</ul>";
-        echo "<div class='hpl_tabs-content'>{$tab_contents}</div>";
-        echo "</div>";
+        echo "<ul class='hpl-tabs-header'>{$tabHeaders}</ul>";
+        echo "<div class='hpl-tabs-content'>{$tab_contents}</div>";
+        ?>
 
-        // Modal
-        echo "<div class='hpl_modal' style='display:none;'>
-                    <div class='hpl_modal-content'>
-                        <h2>Confirme a sua compra</h2>
-                        <p>Você está comprando COINS para a plataforma</p>
-                        <img class='hpl_modal-product-thumbnail' src='' alt=''>
-                        <h3 class='hpl_modal-product-name'></h3>
-                        <p>Quantidade: <span class='hpl_modal-variation-name'></span> | Valor total: <span class='hpl_modal-product-price'></span></p>
-                        <p>Possui cupom? Você vai poder usar na etapa de pagamento.</p>
-                        <button class='hpl_modal-close'>Voltar</button>
-                        <a href='#' class='hpl_modal-confirm'>Confirmar</a>
+        <div class='hpl-modal' style='display:none;'>
+            <div class='hpl-modal-content'>
+                <div class="hpl-modal-header">
+                    <h2>Confirme a sua compra</h2>
+                </div>
+                <div class="hpl-modal-body">
+                    <p>Você está comprando COINS para a plataforma</p>
+                    <img class='hpl-modal-product-thumbnail' src='' alt=''>
+                    <h3 class='hpl-modal-product-name'></h3>
+                    <p>Quantidade: <span class='hpl-modal-variation-name'></span> | Valor total: <span class='hpl-modal-product-price'></span></p>
+                </div>
+                <div class="hpl-modal-footer">
+                    <span><b>Possui cupom?</b> Você vai poder usar na etapa de pagamento.</span>
+                    <div>
+                        <button type="button" class='hpl-modal-close'>Voltar</button>
+                        <a href='#' class='hpl-modal-confirm'>Confirmar</a>
                     </div>
-                 </div>";
+                </div>
+            </div>
+        </div>
+<?php
     }
 }
