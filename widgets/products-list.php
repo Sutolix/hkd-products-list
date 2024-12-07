@@ -27,6 +27,16 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         return ['list', 'products', 'woocommerce', 'tabs'];
     }
 
+    public function get_style_depends(): array
+    {
+        return ['hpl-products-list-style'];
+    }
+
+    public function get_script_depends(): array
+    {
+        return ['hpl-products-list-script'];
+    }
+
     protected function register_controls(): void
     {
         $product_categories = get_terms([
@@ -76,8 +86,8 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
 
     protected function render(): void
     {
-		$settings = $this->get_settings_for_display();
+        $settings = $this->get_settings_for_display();
 
-		var_dump($settings['categories']);
+        var_dump($settings['categories']);
     }
 }
