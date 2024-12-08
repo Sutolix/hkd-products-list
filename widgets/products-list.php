@@ -854,9 +854,9 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
                 </div>
                 <div class="hpl-modal-footer">
                     <span><b>Possui cupom?</b> Você vai poder usar na etapa de pagamento.</span>
-                    <div>
-                        <button type="button" class='hpl-modal-close'>Voltar</button>
-                        <a href='#' class='hpl-modal-confirm'>Confirmar</a>
+                    <div class="hpl-modal-buttons">
+                        <button type="button" class='hpl-modal-btn hpl-modal-close'>Voltar</button>
+                        <a href='#' class='hpl-modal-btn hpl-modal-confirm'>Confirmar</a>
                     </div>
                 </div>
             </div>
