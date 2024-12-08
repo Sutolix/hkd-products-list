@@ -10,6 +10,7 @@
         
                 $(this).addClass("hpl-active");
                 $("#" + tabId).addClass("hpl-active");
+                $('.hpl-tabs-fallback').hide();
             });
         
             // Modal
