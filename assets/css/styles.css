@@ -36,10 +36,17 @@
     font-size: .9rem;
 }
 
-.hpl-modal-footer .hpl-modal-close,
-.hpl-modal-footer .hpl-modal-confirm {
+.hpl-modal-footer .hpl-modal-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.hpl-modal-footer .hpl-modal-btn {
     padding: 10px 20px;
-    margin: 10px;
+    margin: 0px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
