@@ -5,7 +5,7 @@ Requires Plugins: elementor, woocommerce
 Description: Um addon para Elementor que cria uma listagem de produtos com abas por categoria.
 Author: Hookod
 Text Domain: nkd-products-list
-Version: 0.1
+Version: 1.0.0
 Author URI: https://hookod.com
 */
 
