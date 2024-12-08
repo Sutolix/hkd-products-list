@@ -14,7 +14,7 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
 
     public function get_icon(): string
     {
-        return 'eicon-code';
+        return 'eicon-product-tabs';
     }
 
     public function get_categories(): array
