@@ -299,6 +299,62 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         $this->end_controls_section();
 
         $this->start_controls_section(
+            'fallback_style_section',
+            [
+                'label' => 'Fallback',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'fallback_typography',
+                'selector' => '{{WRAPPER}} .hpl-tabs-fallback span',
+            ]
+        );
+
+        $this->add_control(
+			'fallback_text_color',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-fallback span' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->add_control(
+			'fallback_align',
+			[
+				'label' => esc_html__( 'Alignment', 'elementor' ),
+				'type' => \Elementor\Controls_Manager::CHOOSE,
+				'options' => [
+					'left' => [
+						'title' => esc_html__( 'Left', 'elementor' ),
+						'icon' => 'eicon-text-align-left',
+					],
+					'center' => [
+						'title' => esc_html__( 'Center', 'elementor' ),
+						'icon' => 'eicon-text-align-center',
+					],
+					'right' => [
+						'title' => esc_html__( 'Right', 'elementor' ),
+						'icon' => 'eicon-text-align-right',
+					],
+				],
+				'default' => 'center',
+				'toggle' => true,
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-fallback' => 'text-align: {{VALUE}};',
+				],
+			]
+		);
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
             'loop_style_section',
             [
                 'label' => 'Item do loop',
