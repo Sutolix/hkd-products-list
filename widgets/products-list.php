@@ -215,71 +215,71 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         );
 
         $this->add_control(
-			'tabs_image_width',
-			[
-				'label' => 'Largura das imagens',
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 1000,
-						'step' => 5,
-					],
-					'%' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'width: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
+            'tabs_image_width',
+            [
+                'label' => 'Largura das imagens',
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px', '%', 'em', 'rem', 'custom'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 1000,
+                        'step' => 5,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
 
         $this->add_control(
-			'tabs_image_height',
-			[
-				'label' => 'Altura das imagens',
-				'type' => \Elementor\Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
-				'range' => [
-					'px' => [
-						'min' => 0,
-						'max' => 1000,
-						'step' => 5,
-					],
-					'%' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors' => [
-					'{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'height: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
+            'tabs_image_height',
+            [
+                'label' => 'Altura das imagens',
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px', '%', 'em', 'rem', 'custom'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 1000,
+                        'step' => 5,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
 
         $this->add_control(
-			'tabs_image_object',
-			[
-				'label' => 'Ajuste do objeto',
-				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => '',
-				'options' => [
-					'' => 'Padrão',
-					'fill' => 'Preencher',
-					'cover'  => 'Cobertura',
-					'contain' => 'Conter'
-				],
-				'selectors' => [
-					'{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'object-fit: {{VALUE}};',
-				],
-				'condition' => [
-					'tabs_image_height[size]!' => '',
-				],
-			]
-		);
+            'tabs_image_object',
+            [
+                'label' => 'Ajuste do objeto',
+                'type' => \Elementor\Controls_Manager::SELECT,
+                'default' => '',
+                'options' => [
+                    '' => 'Padrão',
+                    'fill' => 'Preencher',
+                    'cover'  => 'Cobertura',
+                    'contain' => 'Conter'
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-tabs-header .hpl-tab-item img' => 'object-fit: {{VALUE}};',
+                ],
+                'condition' => [
+                    'tabs_image_height[size]!' => '',
+                ],
+            ]
+        );
 
         $this->end_controls_section();
 
@@ -329,10 +329,33 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+            'variation_badge_width',
+            [
+                'label' => 'Largura do emblema',
+                'type' => \Elementor\Controls_Manager::SLIDER,
+                'size_units' => ['px', '%', 'em', 'rem', 'custom'],
+                'range' => [
+                    'px' => [
+                        'min' => 0,
+                        'max' => 1000,
+                        'step' => 5,
+                    ],
+                    '%' => [
+                        'min' => 0,
+                        'max' => 100,
+                    ],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-variation-header .hpl-variation-badge img' => 'width: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
-            'variation_body',
+            'variation_description',
             [
                 'label' => 'Descrição da variação',
                 'tab' => \Elementor\Controls_Manager::TAB_STYLE,
@@ -343,7 +366,25 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
             \Elementor\Group_Control_Typography::get_type(),
             [
                 'name' => 'variation_description_text',
-                'selector' => '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-info',
+                'selector' => '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-info .hpl-variation-text',
+            ]
+        );
+
+        $this->end_controls_section();
+
+        $this->start_controls_section(
+            'variation_price',
+            [
+                'label' => 'Preço da variação',
+                'tab' => \Elementor\Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'variation_price_text',
+                'selector' => '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-info .woocommerce-Price-amount',
             ]
         );
 
@@ -365,6 +406,86 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
             ]
         );
 
+        $this->start_controls_tabs(
+            'variation_button_colors'
+        );
+
+        $this->start_controls_tab(
+            'variation_button_colors_normal',
+            [
+                'label' => 'Normal',
+            ]
+        );
+
+        $this->add_control(
+			'variation_button_color',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-action button' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->add_control(
+			'variation_button_background_color',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-action button' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab(
+            'variation_button_colors_hover',
+            [
+                'label' => 'Ao passar o mouse',
+            ]
+        );
+
+        $this->add_control(
+			'variation_button_color_hover',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-action button:hover' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->add_control(
+			'variation_button_background_color_hover',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-action button:hover' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->add_control(
+            'variation_button_padding',
+            [
+                'label' => esc_html__('Padding', 'elementor'),
+                'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', '%', 'em', 'rem', 'custom'],
+                'selectors' => [
+                    '{{WRAPPER}} .hpl-tabs-content .hpl-variation-item .hpl-variation-action button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
         $this->end_controls_section();
 
         $this->start_controls_section(
@@ -375,16 +496,262 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
             ]
         );
 
+        $this->add_control(
+			'heading_modal_title',
+			[
+				'label' => 'Título',
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
         $this->add_group_control(
             \Elementor\Group_Control_Typography::get_type(),
             [
-                'name' => 'modal_text',
-                'selector' => '{{WRAPPER}} .hpl-modal .hpl-modal-content',
+                'name' => 'modal_title_text',
+                'selector' => '.hpl-modal .hpl-modal-content .hpl-modal-header',
             ]
         );
 
-        $this->end_controls_section();
+        $this->add_control(
+			'heading_modal_subtitle',
+			[
+				'label' => 'Subtitulo',
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
 
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'modal_subtitle_text',
+                'selector' => '.hpl-modal .hpl-modal-content .hpl-modal-subtitle',
+            ]
+        );
+
+        $this->add_control(
+			'heading_modal_product_name',
+			[
+				'label' => 'Nome do produto',
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'modal_product_name_text',
+                'selector' => '.hpl-modal .hpl-modal-content .hpl-modal-product-name',
+            ]
+        );
+
+        $this->add_control(
+			'heading_modal_quantity',
+			[
+				'label' => 'Quantidade',
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'modal_quantity_text',
+                'selector' => '.hpl-modal .hpl-modal-content .hpl-modal-quantity',
+            ]
+        );
+
+        $this->add_control(
+			'heading_modal_footer',
+			[
+				'label' => 'Rodapé',
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'modal_footer_text',
+                'selector' => '.hpl-modal .hpl-modal-content .hpl-modal-footer span',
+            ]
+        );
+
+        $this->add_control(
+			'heading_modal_close_button',
+			[
+				'label' => 'Botão voltar',
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'modal_close_button_text',
+                'selector' => '.hpl-modal .hpl-modal-content .hpl-modal-close',
+            ]
+        );
+
+        $this->start_controls_tabs(
+            'modal_close_button_colors'
+        );
+
+        $this->start_controls_tab(
+            'modal_close_button_colors_normal',
+            [
+                'label' => 'Normal',
+            ]
+        );
+
+        $this->add_control(
+			'modal_close_button_color',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-close' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->add_control(
+			'modal_close_button_background_color',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-close' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab(
+            'modal_close_button_colors_hover',
+            [
+                'label' => 'Ao passar o mouse',
+            ]
+        );
+
+        $this->add_control(
+			'modal_close_button_color_hover',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-close:hover' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->add_control(
+			'modal_close_button_background_color_hover',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-close:hover' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->add_control(
+			'heading_modal_confirm_button',
+			[
+				'label' => 'Botão confirmar',
+				'type' => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name' => 'modal_confirm_button_text',
+                'selector' => '.hpl-modal .hpl-modal-content .hpl-modal-confirm',
+            ]
+        );
+
+        $this->start_controls_tabs(
+            'modal_confirm_button_colors'
+        );
+
+        $this->start_controls_tab(
+            'modal_confirm_button_colors_normal',
+            [
+                'label' => 'Normal',
+            ]
+        );
+
+        $this->add_control(
+			'modal_confirm_button_color',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-confirm' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->add_control(
+			'modal_confirm_button_background_color',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-confirm' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->end_controls_tab();
+
+        $this->start_controls_tab(
+            'modal_confirm_button_colors_hover',
+            [
+                'label' => 'Ao passar o mouse',
+            ]
+        );
+
+        $this->add_control(
+			'modal_confirm_button_color_hover',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-confirm:hover' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->add_control(
+			'modal_confirm_button_background_color_hover',
+			[
+				'label' => 'Cor do texto',
+				'type' => \Elementor\Controls_Manager::COLOR,
+				'selectors' => [
+					'.hpl-modal .hpl-modal-content .hpl-modal-confirm:hover' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+        $this->end_controls_tab();
+
+        $this->end_controls_tabs();
+
+        $this->end_controls_section();
     }
 
     protected function render(): void
@@ -441,14 +808,17 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
                             isset($settings['badge']['url']) &&
                             !empty($settings['badge']['url'])
                         ) {
-                            echo "<img src='{$settings['badge']['url']}'/>";
+                            echo "<div class='hpl-variation-badge'><img src='{$settings['badge']['url']}'/></div>";
                         }
                         ?>
                         <span><?php echo $name ?></span>
                     </div>
                     <div class="hpl-variation-info">
-                        <div><?php echo $description ?></div>
-                        <div>por <?php echo $price ?></div>
+                        <div class="hpl-variation-text">
+                            <span class="hpl-variation-description"><?php echo $description ?></span>
+                            <span class="hpl-label">por</span>
+                            <?php echo $price ?>
+                        </div>
                     </div>
                     <div class="hpl-variation-action">
                         <button class='hpl-buy-button'
@@ -474,13 +844,13 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         <div class='hpl-modal' style='display:none;'>
             <div class='hpl-modal-content'>
                 <div class="hpl-modal-header">
-                    <h2>Confirme a sua compra</h2>
+                    <span>Confirme a sua compra</span>
                 </div>
                 <div class="hpl-modal-body">
-                    <p>Você está comprando COINS para a plataforma</p>
+                    <p class="hpl-modal-subtitle">Você está comprando COINS para a plataforma</p>
                     <img class='hpl-modal-product-thumbnail' src='' alt=''>
-                    <h3 class='hpl-modal-product-name'></h3>
-                    <p>Quantidade: <span class='hpl-modal-variation-name'></span> | Valor total: <span class='hpl-modal-product-price'></span></p>
+                    <div class='hpl-modal-product-name'></div>
+                    <p class='hpl-modal-quantity'>Quantidade: <span class='hpl-modal-variation-name'></span> | Valor total: <span class='hpl-modal-product-price'></span></p>
                 </div>
                 <div class="hpl-modal-footer">
                     <span><b>Possui cupom?</b> Você vai poder usar na etapa de pagamento.</span>
