@@ -92,6 +92,21 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         );
 
         $this->add_control(
+			'fallback_text',
+			[
+				'label' => 'Fallback',
+                'description' => 'Texto exibido quando não há produto selecionado',
+                'label_block' => true,
+                'dynamic' => [
+                    'active' => true,
+                ],
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => 'Escolha um produto',
+				'placeholder' => 'Digite aqui',
+			]
+		);
+
+        $this->add_control(
             'show_badge',
             [
                 'label' => 'Mostrar emblema',
@@ -838,7 +853,9 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         
         echo "<ul class='hpl-tabs-header'>{$tabHeaders}</ul>";
         echo "<div class='hpl-tabs-content'>{$tab_contents}</div>";
-        echo "<div class='hpl-tabs-fallback'><span>Escolha uma plataforma antes</span></div>";
+
+        $fallback_text = isset($settings['fallback_text']) && !empty($settings['fallback_text']) ? $settings['fallback_text'] : 'Escolha um produto';
+        echo "<div class='hpl-tabs-fallback'><span>{$fallback_text}</span></div>";
         ?>
 
         <div class='hpl-modal' style='display:none;'>
