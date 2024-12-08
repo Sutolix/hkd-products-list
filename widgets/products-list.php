@@ -763,20 +763,19 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
         $tabHeaders = '';
         $tab_contents = '';
 
-        foreach ($settings['products'] as $key => $product) {
+        foreach ($settings['products'] as $product) {
             $product = wc_get_product($product['product_id']);
 
             if (!$product || !$product->is_type('variable')) {
                 continue;
             }
 
-            $active = $key === 0 ? 'hpl-active' : '';
             $product_name = $product->get_name();
             $product_slug = $product->get_slug();
             $product_image = wp_get_attachment_url($product->get_image_id());
 
             // Criação da aba
-            $tabHeaders .= "<li class='hpl-tab-item {$active}' data-tab='hpl-tab-{$product_slug}'>";
+            $tabHeaders .= "<li class='hpl-tab-item' data-tab='hpl-tab-{$product_slug}'>";
             if ($product_image) {
                 $tabHeaders .= "<img src='{$product_image}' alt='{$product_name}' class='hpl-product-thumbnail' />";
             }
@@ -784,7 +783,7 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
             $tabHeaders .= "</li>";
 
             // Variações do produto
-            $tab_contents .= "<div class='hpl-tab-content {$active}' id='hpl-tab-{$product_slug}'>";
+            $tab_contents .= "<div class='hpl-tab-content' id='hpl-tab-{$product_slug}'>";
 
             $variation_ids = $product->get_children();
             foreach ($variation_ids as $variation_id) {
@@ -836,9 +835,10 @@ class Elementor_HPL_Products_List extends \Elementor\Widget_Base
             }
             $tab_contents .= "</div>";
         }
-
+        
         echo "<ul class='hpl-tabs-header'>{$tabHeaders}</ul>";
         echo "<div class='hpl-tabs-content'>{$tab_contents}</div>";
+        echo "<div class='hpl-tabs-fallback'><span>Escolha uma plataforma antes</span></div>";
         ?>
 
         <div class='hpl-modal' style='display:none;'>
